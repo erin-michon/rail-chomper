@@ -1,5 +1,24 @@
 {
   "dependencies": {
+    "express": "^4.17.2",
     "mongoose": "^6.2.1"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "rail-chomper",
+  "description": "NoSQL: A Social Network API",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erin-michon/rail-chomper.git"
+  },
+  "author": "E. Michon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erin-michon/rail-chomper/issues"
+  },
+  "homepage": "https://github.com/erin-michon/rail-chomper#readme"
 }
