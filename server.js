@@ -10,7 +10,11 @@ app.use(express.static('public'));
 
 app.use(require('./routes'));
 
-// Use this to log mongo queries being executed!
-mongoose.set('debug', true);
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/social-network-api', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+
+mongoose.set('debug', true)
 
 app.listen(PORT, () => console.log(`Now listening on localhost:${PORT}`));
