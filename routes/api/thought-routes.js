@@ -33,7 +33,7 @@ router
     .route('/:thoughtId/reactions')
     .post(createReaction)
     
-//set up DELETE at /api/thoughts/:reactionId to delete a reaction
+//set up DELETE at /api/:thoughtId/reactions/:reactionId to delete a reaction
 router
     .route('/:thoughtId/reactions/:reactionId')
     .delete(deleteReaction);
