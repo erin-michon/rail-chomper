@@ -16,6 +16,11 @@ router
   .get(getAllThought)
   .post(createThought);
 
+// set up POST for thoughts /api/thoughts/:userId
+router
+.route('/:userId')
+.post(createThought)
+
 //set up Get one, PUT and DELETE at /api/thoughts/:id
 router
   .route('/:id')

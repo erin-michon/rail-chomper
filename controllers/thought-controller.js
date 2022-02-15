@@ -1,4 +1,4 @@
-const { Thought } = require('../models');
+const { Thought, User } = require('../models');
 
 const thoughtController ={
 
@@ -17,11 +17,12 @@ const thoughtController ={
         });
     },
 
-    //POST at /api/thoughts
+    //POST at /api/thoughts/:userId
     createThought ({ params, body }, res) {
         console.log(body)
         Thought.create(body)
           .then(({ _id }) => {
+            console.log(_id);
             return User.findOneAndUpdate(
               { _id: params.userId },
               { $push: { thoughts: _id } },
@@ -35,8 +36,11 @@ const thoughtController ={
             }
             res.json(dbUserData)
           })
-          .catch(err => res.status(400).json(err))
-    },
+          .catch(err => {
+            console.log(err);
+            res.status(400).json(err);
+    })
+    },    
 
     //GET one thought at /api/thoughts/:id
     getThoughtById({params},res) {
@@ -70,8 +74,8 @@ const thoughtController ={
     //DELETE at /api/thoughts/:id
     deleteThought({params}, res) {
         Thought.findOneAndDelete({_id: params.thoughtId})
-            .then(deleteComment => {
-                if(!deleteComment){
+            .then(deleteThought => {
+                if(!deleteThought){
                     return res.status(404).json({message: 'No thought found with this id'});
                 }
                 return User.findOneAndUpdate(
