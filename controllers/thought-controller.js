@@ -1,4 +1,4 @@
-const { Thought, User } = require('../models');
+const { User, Thought} = require('../models');
 
 const thoughtController ={
 
@@ -44,7 +44,7 @@ const thoughtController ={
 
     //GET one thought at /api/thoughts/:id
     getThoughtById({params},res) {
-        Thought.findOne({_id: params.thoughtId})
+        Thought.findOne({_id: params.id})
             .then(dbThoughtData => {
                 if(!dbThoughtData){
                     res.status(404).json({message: 'No thought found with this id'});
@@ -60,7 +60,7 @@ const thoughtController ={
 
     //PUT at /api/thoughts/:id
     updateThought({params, body}, res) {
-        Thought.findOneAndUpdate({_id: params.thoughtId}, body, {new: true, runValidators: true})
+        Thought.findOneAndUpdate({_id: params.id}, body, {new: true, runValidators: true})
             .then(dbThoughtData => {
                 if(!dbThoughtData) {
                     res.status(404).json({message: 'No thought found with this id'});
@@ -73,17 +73,7 @@ const thoughtController ={
 
     //DELETE at /api/thoughts/:id
     deleteThought({params}, res) {
-        Thought.findOneAndDelete({_id: params.thoughtId})
-            .then(deleteThought => {
-                if(!deleteThought){
-                    return res.status(404).json({message: 'No thought found with this id'});
-                }
-                return User.findOneAndUpdate(
-                    {_id: params.userId},
-                    {$pull: {thoughts: params.thoughtId}},
-                    {new: true}
-                );
-            })
+        Thought.findOneAndDelete({_id: params.id})
             .then(dbThoughtData => {
                 if(!dbThoughtData){
                     res.status(404).json({message: 'No thought found with this id'});
